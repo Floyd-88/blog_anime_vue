@@ -1,0 +1,39 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.nav_link {
+    @apply mx-4 border-b-4 border-transparent hover:text-gray-800 dark:hover:text-slate-100 hover:border-gray-800 dark:hover:border-slate-300  transition-all duration-300
+}
+
+.btn_header {
+    @apply py-1 px-3 mx-1 border-2 rounded-full border-indigo-500 dark:border-indigo-200 text-indigo-500 dark:text-indigo-200 hover:bg-indigo-500 hover:text-white dark:hover:text-slate-50 transition-all duration-300
+}
+
+@layer components {
+    .pagination {
+        @apply inline-block py-1 px-3 border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-all duration-300
+    }
+}
+
+.bg_footer {
+    @apply bg-[url('src/assets/img/banner/banner.jpg')] bg-slate-900 bg-no-repeat bg-cover bg-center bg-blend-color;
+}
+
+.title_prew {
+   @apply mb-1 md:text-xl text-gray-700 font-medium dark:text-gray-300
+}
+
+.text_prew {
+    @apply text-sm md:text-base text-gray-500 hover:font-medium dark:text-gray-400
+}
+
+.container_news {
+    @apply mb-8 ml-2 mr-2 p-8 border-t-2 border-gray-100 dark:border-gray-800 shadow-lg shadow-gray-400 dark:shadow-gray-700
+}
+
+.container_news_title {
+    @apply mb-4 font-bold text-2xl text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500
+}
