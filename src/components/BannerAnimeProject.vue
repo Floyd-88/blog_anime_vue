@@ -13,7 +13,6 @@
       <div
         class="flex relative z-20 items-center h-full justify-center text-4xl text-gray-300 font-bold"
       >
-        Category: Naruto
       </div>
     </div>
   </section>
