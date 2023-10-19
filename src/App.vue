@@ -4,6 +4,16 @@ import HeaderAnimeProject from '@/components/HeaderAnimeProject.vue'
 import BannerAnimeProject from '@/components/BannerAnimeProject.vue'
 import AsideAnimeProject from '@/components/AsideAnimeProject.vue'
 import FooterAnimeProject from '@/components/FooterAnimeProject.vue'
+import { onMounted } from 'vue'
+
+import { useAnimeStore } from './stores/anime'
+
+const aimeStore = useAnimeStore();
+
+onMounted(() => {
+  aimeStore.getTopAnimeLimit()   
+})
+
 </script>
 
 <template>
@@ -33,3 +43,4 @@ import FooterAnimeProject from '@/components/FooterAnimeProject.vue'
 </template>
 
 <style scoped></style>
+./stores/anime

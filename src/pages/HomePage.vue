@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
-import { useCounterStore } from '../stores/anime_now'
+import { useAnimeStore } from '../stores/anime'
 
 import PaginationPage from '@/components/elementPage/PaginationPage.vue'
 import MainAnimeProject from '@/components/mainAnimeProject/MainAnimeProject.vue'
 
-const rootStore = useCounterStore();
+const rootStore = useAnimeStore();
 
 onMounted(() => {
-    rootStore.getNewAnime(1)
+    rootStore.getNewAnime(10, 1)
+    rootStore.getTopAnimeLimit()
+    
 })
 
 </script>
@@ -19,4 +21,3 @@ onMounted(() => {
     <!-- pagination -->
     <PaginationPage />
 </template>
-../stores/anime_now

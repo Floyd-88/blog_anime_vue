@@ -1,12 +1,33 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import Paginate from 'vuejs-paginate-next'
 import { storeToRefs } from 'pinia'
-import { useCounterStore } from '../../stores/anime_now'
-const rootStore = useCounterStore()
-const { last_visible_page, current_page } = storeToRefs(rootStore)
+import { useAnimeStore } from '../../stores/anime'
+import { ref } from 'vue'
+
+const aimeStore = useAnimeStore()
+const { last_visible_page } = storeToRefs(aimeStore)
+
+const route = useRoute()
+
+let current_page = ref(1)
 
 const clickCallback = () => {
-  rootStore.getNewAnime(current_page.value)
+  window.scrollTo(0, 0)
+
+  switch (route.fullPath) {
+    case '/':
+      aimeStore.getNewAnime(10, current_page.value)
+      break
+    case '/top':
+      aimeStore.getTopAnime(20, current_page.value)
+      break
+    case '/recommedations':
+    aimeStore.getRecommendationsAnime(current_page.value)
+      break
+    // default:
+    //   console.log("Sorry, we are out of " + expr + ".");
+  }
 }
 </script>
 <template>
@@ -29,3 +50,4 @@ const clickCallback = () => {
   </div>
 </template>
 <style scoped></style>
+../../stores/anime

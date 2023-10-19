@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import ContainerNews from '../elementPage/ContainerNews.vue'
-import type { Anime_now } from '../../types/anime';
+
+export interface Anime_now {
+   mal_id: number
+    url: string
+    images: {
+      webp: {
+        image_url: string
+      }
+    }
+    title: string
+    synopsis: string | null
+    studios: [{ mal_id: number; name: string }]
+    genres: [{ mal_id: number; name: string }]
+    aired: { from: Date }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 defineProps({

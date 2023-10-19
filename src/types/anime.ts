@@ -1,29 +1,69 @@
-export interface Anime_now {
+export interface Anime {
   mal_id: number
   url: string
   images: {
     webp: {
-        image_url: string
-      }
+      image_url: string
+    }
   }
   title: string
   synopsis: string | null
-  studios: [{mal_id: number, name: string}]
-  genres: [{mal_id: number, name: string}]
-  aired: {from: Date}
+  studios: [{ mal_id: number; name: string }]
+  genres: [{ mal_id: number; name: string }]
+  aired: { from: Date; to: Date }
+  type: string
+  score: number
+  rank: number
+  episodes: number
 }
 
-export interface Pagination_anime_now {
-    mal_id: number
-    url: string
-    images: {
-      webp: {
-          image_url: string
+export interface Anime_recommendations {
+  mal_id: string
+  entry: [
+    {
+      mai_id: number
+      title: string
+      url: string
+      images: {
+        webp: {
+          small_image_url: string
         }
+      }
+    },
+    {
+      mai_id: number
+      title: string
+      url: string
+      images: {
+        webp: {
+          small_image_url: string
+        }
+      }
     }
-    title: string
-    synopsis: string | null
-    studios: [{mal_id: number, name: string}]
-    genres: [{mal_id: number, name: string}]
-    aired: {from: Date}
+  ]
+  content: string
+  date: Date
+  user: {
+    username: string
   }
+}
+
+export interface Anime_genres {
+  mal_id: number
+  name: 'string'
+  url: 'string'
+  count: number
+}
+
+export interface Anime_studios {
+  mal_id: number
+  titles: [
+    {
+    "type": "string",
+    "title": "string"
+    }]
+  url: 'string'
+  count: number
+}
+
+

@@ -2,13 +2,11 @@
 // import { useRouter } from 'vue-router'
 import CardAnimeProject from './CardAnimeProject.vue'
 
-import { useCounterStore } from '../../stores/anime_now'
+import { useAnimeStore } from '../../stores/anime'
 import { storeToRefs } from 'pinia';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// const router = useRouter()
-const rootStore = useCounterStore();
-const { newAnime } = storeToRefs(rootStore)
+const animeStore = useAnimeStore();
+const { newAnime } = storeToRefs(animeStore)
 
 </script>
 <template>
@@ -17,3 +15,4 @@ const { newAnime } = storeToRefs(rootStore)
   </div>
 </template>
 <style scoped></style>
+../../stores/anime
