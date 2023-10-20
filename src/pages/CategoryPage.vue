@@ -14,7 +14,6 @@ onMounted(() => {
 
 })
 
-
 </script>
 <template>
   <ContainerNews>
@@ -36,7 +35,7 @@ onMounted(() => {
               clip-rule="evenodd"
             />
           </svg>
-          <li class="hover:text-indigo-500 text-sm">{{ genre.name }} <span>({{ genre.count }})</span></li></a
+          <li class="hover:text-indigo-500 text-sm" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` } })">{{ genre.name }} <span>({{ genre.count }})</span></li></a
         >
       </ul>
     </div>
@@ -61,7 +60,7 @@ onMounted(() => {
               clip-rule="evenodd"
             />
           </svg>
-          <li class="hover:text-indigo-500 text-sm">{{ studio.titles[0].title }} <span>({{ studio.count }})</span></li></a
+          <li class="hover:text-indigo-500 text-sm" @click="$router.push({ name: 'animeListCategoryPage', params: { type: 'producer', id: `${studio.mal_id}`, name: `${studio.titles[0].title}` } })">{{ studio.titles[0].title }} <span>({{ studio.count }})</span></li></a
         >
       </ul>
     </div>

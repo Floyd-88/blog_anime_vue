@@ -15,6 +15,18 @@ export interface Anime {
   score: number
   rank: number
   episodes: number
+
+  trailer: {
+    youtube_id: string,
+    url: string,
+    embed_url: string
+    },
+    title_english: string
+    source: string
+    duration: string
+    status: string
+    rating: string
+    year: number
 }
 
 export interface Anime_recommendations {

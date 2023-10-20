@@ -53,7 +53,7 @@
                 </svg>
                 <li class="hover:text-white">Services</li>
               </a>
-              <a href="#" class="flex items-center">
+              <a href="https://github.com/jikan-me/jikan-rest/blob/master/LICENSE" class="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

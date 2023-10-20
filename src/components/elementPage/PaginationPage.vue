@@ -14,8 +14,7 @@ let current_page = ref(1)
 
 const clickCallback = () => {
   window.scrollTo(0, 0)
-
-  switch (route.fullPath) {
+  switch (decodeURIComponent(route.fullPath)) {
     case '/':
       aimeStore.getNewAnime(10, current_page.value)
       break
@@ -23,7 +22,13 @@ const clickCallback = () => {
       aimeStore.getTopAnime(20, current_page.value)
       break
     case '/recommedations':
-    aimeStore.getRecommendationsAnime(current_page.value)
+      aimeStore.getRecommendationsAnime(current_page.value)
+      break
+    case `/category/genre/${Number(route.params.id)}/${route.params.name}`:
+      aimeStore.getAnimeArrayCatetegory(25, current_page.value, Number(route.params.id))
+      break
+    case `/category/producer/${Number(route.params.id)}/${route.params.name}`:
+      aimeStore.getAnimeArrayStudios(25, current_page.value, Number(route.params.id))
       break
     // default:
     //   console.log("Sorry, we are out of " + expr + ".");

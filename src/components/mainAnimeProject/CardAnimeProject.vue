@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
+import { useRouter } from 'vue-router'
+
 import ContainerNews from '../elementPage/ContainerNews.vue'
+
+const router = useRouter()
 
 export interface Anime_now {
    mal_id: number
@@ -29,7 +33,7 @@ defineProps({
   <ContainerNews>
     <a href="#">
       <div>
-        <h3 class="container_news_title" @click="$router.push('/anime/1')">{{anime.title}}</h3>
+        <h3 class="container_news_title" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{anime.title}}</h3>
       </div>
     </a>
     <div class="flex space-x-3">
@@ -38,7 +42,7 @@ defineProps({
           <img
             :src="anime.images.webp.image_url"
             :alt="anime.title"
-            @click="$router.push('/anime/1')"
+            @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })"
           />
           <div
             class="w-32 h-10 text-sm text-white absolute top-5 left-5 font-medium rounded-md bg-red-400"
@@ -65,7 +69,7 @@ defineProps({
       </a>
 
       <div class="basis-2/3 flex flex-col justify-between">
-        <a href="#" @click="$router.push('/anime/1')">
+        <a href="#" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">
           <div
             class="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
           >

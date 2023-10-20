@@ -20,13 +20,11 @@ const router = useRouter();
     </div>
     <div class="w-1/2 sm:w-full p-1" v-for="(anime, index) in topAnimeLimit" :key="anime.mal_id">
       <div>
-        <a href="#"><img class="w-full h-40 object-cover  object-center" @click="$router.push('/anime/1')" :src="anime.images.webp.image_url" :alt="anime.title" /></a>
+        <img class="w-full h-40 object-cover  object-center cursor-pointer" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })"  :src="anime.images?.webp.image_url" :alt="anime.title" />
       </div>
       <div class="mt-3 mb-6">
-        <a href="#"><div class="title_prew" @click="$router.push('/anime/1')">{{ index + 1 }} {{ anime.title }}</div></a>
-        <a href="#"
-          ><div class="text_prew" @click="$router.push('/anime/1')">{{ anime.synopsis?.substring(0, anime.synopsis.length - 1).slice(0, 70) + '...' }}</div></a
-        >
+        <div class="title_prew" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{ index + 1 }} {{ anime.title }}</div>
+        <div class="text_prew" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{ anime.synopsis?.substring(0, anime.synopsis.length - 1).slice(0, 70) + '...' }}</div>
       </div>
     </div>
   </aside>

@@ -55,11 +55,11 @@ onMounted(() => {
               <td class="p-2 border-b border-l text-left">
                 <div class="flex">
                   <div class="mr-2 cursor-pointer">
-                    <img :src="anime.images.webp.image_url" :alt="anime.title" @click="$router.push('/anime/1')"/>
+                    <img :src="anime.images.webp.image_url" :alt="anime.title" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })"/>
                   </div>
                   <div>
                     <div class="text-lg font-medium">
-                      <a href="#" @click="$router.push('/anime/1')">{{ anime.title }}</a>
+                      <a href="#" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{ anime.title }}</a>
                     </div>
                     <div>
                       <div class="text-sm"><span>{{ anime.type }} </span><span v-if="anime.episodes > 1">({{anime.episodes}})</span></div>
@@ -69,6 +69,7 @@ onMounted(() => {
                         <a
                           class="mr-1 p-0.5 border border-indigo-500 bg-gray-600 font-bold text-xs text-white"
                           href="#"
+                          @click="router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` } })"
                           v-for="(genre) in anime.genres" :key="genre.mal_id">
                           {{genre.name}}
                         </a

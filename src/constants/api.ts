@@ -4,3 +4,6 @@ export const TOP_ANIME = `${BASE_URL}top/anime`
 export const RECOMMDATIONS_ANIME = `${BASE_URL}recommendations/anime`
 export const GENRES_ANIME = `${BASE_URL}genres/anime`
 export const STUDIOS_ANIME = `${BASE_URL}producers`
+export const ANIME = `${BASE_URL}anime`
+
+

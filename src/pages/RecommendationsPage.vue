@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAnimeStore } from '../stores/anime'
 import { storeToRefs } from 'pinia'
 
@@ -7,7 +8,7 @@ import ContainerNews from '@/components/elementPage/ContainerNews.vue'
 
 const animeStore = useAnimeStore()
 const { animeRecommendations } = storeToRefs(animeStore)
-
+const router = useRouter()
 onMounted(() => {
   animeStore.getRecommendationsAnime(1)
 })
@@ -28,26 +29,26 @@ onMounted(() => {
           <div class="flex w-1/2">
             <div class="mr-2">
               <a href="#"
-                ><img :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="$router.push('/anime/1')"
+                ><img :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })"
               /></a>
             </div>
             <div>
               <div class="text-sm font-medium text-gray-500">If you liked</div>
               <div class="font-medium">
-                <a href="#" @click="$router.push('/anime/1')">{{ recommend.entry[0].title }}</a>
+                <a href="#" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })">{{ recommend.entry[0].title }}</a>
               </div>
             </div>
           </div>
           <div class="flex w-1/2">
             <div class="mr-2">
               <a href="#"
-                ><img :src="recommend.entry[1].images.webp.small_image_url" alt="art"
+                ><img :src="recommend.entry[1].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })"
               /></a>
             </div>
             <div>
               <div class="text-sm font-medium text-gray-500">...then you might like</div>
               <div class="font-medium">
-                <a href="#">{{ recommend.entry[1].title }}</a>
+                <a href="#" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })">{{ recommend.entry[1].title }}</a>
               </div>
             </div>
           </div>

@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { NEW_ANIME, TOP_ANIME, RECOMMDATIONS_ANIME, GENRES_ANIME, STUDIOS_ANIME } from '../constants/api'
+import {
+  NEW_ANIME,
+  TOP_ANIME,
+  RECOMMDATIONS_ANIME,
+  GENRES_ANIME,
+  STUDIOS_ANIME,
+  ANIME
+} from '../constants/api'
 import type { Anime, Anime_recommendations, Anime_genres, Anime_studios } from '@/types/anime'
 
 interface State {
+  anime: Anime
+  animeArrayCatetegory: Anime[]
   newAnime: Anime[]
   topAnime: Anime[]
   topAnimeLimit: Anime[]
@@ -15,16 +24,59 @@ interface State {
 
 export const useAnimeStore = defineStore('root', {
   state: (): State => ({
-    last_visible_page: 0,
+    anime: {},
+    animeArrayCatetegory: [],
     newAnime: [],
     topAnime: [],
     topAnimeLimit: [],
     animeRecommendations: [],
     animeGenres: [],
-    animeStudios:[]
+    animeStudios: [],
+    last_visible_page: 0
   }),
 
   actions: {
+    //получаем конкретное аниме
+    async getAnime(id: number) {
+      try {
+        const { data } = await axios.get(`${ANIME}/${id}`)
+        this.anime = data.data
+        console.log(this.anime)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    //получаем список аниме по жанрам
+    async getAnimeArrayCatetegory(count: number, current_page: number, id: number) {
+      try {
+        const { data } = await axios.get(
+          `${ANIME}?limit=${count}&page=${current_page}&genres=${id}`
+        )
+        this.animeArrayCatetegory = data.data
+        this.last_visible_page = data.pagination.last_visible_page
+
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    //получаем список аниме по студиям
+    async getAnimeArrayStudios(count: number, current_page: number, id: number) {
+      try {
+        const { data } = await axios.get(
+          `${ANIME}?limit=${count}&page=${current_page}&producer=${id}`
+        )
+        this.animeArrayCatetegory = data.data
+        this.last_visible_page = data.pagination.last_visible_page
+
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
     //получаем список сезонного аниме
     async getNewAnime(count: number, current_page: number) {
       try {
@@ -89,6 +141,6 @@ export const useAnimeStore = defineStore('root', {
       } catch (error) {
         console.log(error)
       }
-    },
+    }
   }
 })

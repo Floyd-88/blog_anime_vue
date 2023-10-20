@@ -4,6 +4,8 @@ import AnimePage from '../pages/AnimePage.vue'
 import TopPage from '../pages/TopPage.vue'
 import RecommendationsPage from '../pages/RecommendationsPage.vue'
 import CategoryPage from '../pages/CategoryPage.vue'
+import AnimeListCategoryPage from '../pages/AnimeListCategoryPage.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,11 @@ const router = createRouter({
       path: '/category',
       name: 'categoryPage',
       component: CategoryPage
+    },
+    {
+      path: '/category/:type/:id/:name',
+      name: 'animeListCategoryPage',
+      component: AnimeListCategoryPage
     }
   ]
 })
