@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia'
 import ContainerNews from '@/components/elementPage/ContainerNews.vue'
 import PaginationPage from '@/components/elementPage/PaginationPage.vue'
 
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 const animeStore = useAnimeStore()
 const { animeArrayCatetegory } = storeToRefs(animeStore)
@@ -24,6 +24,19 @@ onMounted(() => {
     animeStore.getAnimeArrayStudios(25, 1, Number(route.params.id))
   }
 })
+
+watch(
+  () => route.params,
+  (to, from) => {
+    if(route.params.type === 'genre') { 
+    animeStore.getAnimeArrayCatetegory(25, 1, Number(route.params.id))
+  } else {
+    animeStore.getAnimeArrayStudios(25, 1, Number(route.params.id))
+  }
+    window.scrollTo(0, 0)
+  },
+  { deep: true }
+)
 </script>
 <template>
   <ContainerNews>

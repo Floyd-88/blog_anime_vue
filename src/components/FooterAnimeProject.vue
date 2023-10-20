@@ -23,7 +23,7 @@
           </div>
           <div class="hidden sm:flex">
             <ul class="font-medium">
-              <a href="#" class="flex items-center">
+              <a href="https://portfolioit.ru/" target="_blank" class="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -38,7 +38,7 @@
                 </svg>
                 <li class="hover:text-white">About me</li>
               </a>
-              <a href="#" class="flex items-center">
+              <a href="https://jikan.moe/" target="_blank" class="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -53,7 +53,7 @@
                 </svg>
                 <li class="hover:text-white">Services</li>
               </a>
-              <a href="https://github.com/jikan-me/jikan-rest/blob/master/LICENSE" class="flex items-center">
+              <a href="https://github.com/jikan-me/jikan-rest/blob/master/LICENSE" target="_blank" class="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -104,7 +104,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Drama Anime</li></a
+                <li class="hover:text-white" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `8`, name: `Drama` } })">Drama Anime</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -119,7 +119,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Romance Anime</li></a
+                <li class="hover:text-white" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `22`, name: `Romance` } })">Romance Anime</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -134,7 +134,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Mecha Anime</li></a
+                <li class="hover:text-white" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `18`, name: `Mecha` } })">Mecha Anime</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -149,7 +149,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Action Anime</li></a
+                <li class="hover:text-white" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `1`, name: `Action` } })">Action Anime</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -164,7 +164,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Comedy Anime</li></a
+                <li class="hover:text-white" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `4`, name: `Comedy` } })">Comedy Anime</li></a
               >
             </ul>
           </div>
@@ -202,7 +202,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Home</li></a
+                <li class="hover:text-white" @click="$router.push('/')">Home</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -217,7 +217,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Top</li></a
+                <li class="hover:text-white" @click="$router.push('/top')">Top</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -232,7 +232,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Recommendations</li></a
+                <li class="hover:text-white" @click="$router.push('/recommendations')">Recommendations</li></a
               >
               <a href="#" class="flex items-center">
                 <svg
@@ -247,7 +247,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-                <li class="hover:text-white">Category</li></a
+                <li class="hover:text-white" @click="$router.push('/category')">Category</li></a
               >
             </ul>
           </div>
@@ -273,23 +273,23 @@
             <div>Copyright (c) 2023 Jikan API</div>
             <div class="flex flex-wrap justify-start sm:flex mt-8">
               <div class="mr-5 my-3">
-                <a href="#"><img src="../assets/img/icons_network/fb_footer.png" alt="fb" /></a>
+                <a href="https://raccoonnet.ru/" target="_blank"><img src="../assets/img/icons_network/fb_footer.png" alt="fb" /></a>
               </div>
               <div class="mr-5 my-3">
-                <a href="#"
+                <a href="https://raccoonnet.ru/" target="_blank"
                   ><img src="../assets/img/icons_network/twitter_footer.png" alt="twitter"
                 /></a>
               </div>
               <div class="mr-5 my-3">
-                <a href="#"><img src="../assets/img/icons_network/in_footer.png" alt="in" /></a>
+                <a href="https://raccoonnet.ru/" target="_blank"><img src="../assets/img/icons_network/in_footer.png" alt="in" /></a>
               </div>
               <div class="mr-5 my-3">
-                <a href="#"
+                <a href="https://raccoonnet.ru/" target="_blank"
                   ><img src="../assets/img/icons_network/dribbble_footer.png" alt="dribble"
                 /></a>
               </div>
               <div class="mr-5 my-3">
-                <a href="#"
+                <a href="https://raccoonnet.ru/" target="_blank"
                   ><img src="../assets/img/icons_network/instagram_footer.png" alt="instagramm"
                 /></a>
               </div>
