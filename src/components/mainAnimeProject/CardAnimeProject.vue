@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router'
+import { useAnimeStore } from '../../stores/anime'
+import { storeToRefs } from 'pinia'
+
+
+const animeStore = useAnimeStore();
+const { current_page } = storeToRefs(animeStore)
 
 import ContainerNews from '../elementPage/ContainerNews.vue'
 
@@ -15,6 +21,7 @@ export interface Anime_now {
       }
     }
     title: string
+    title_english: string
     synopsis: string | null
     studios: [{ mal_id: number; name: string }]
     genres: [{ mal_id: number; name: string }]
@@ -28,16 +35,21 @@ defineProps({
     required: true
   }
 })
+
+function goAnimeListCategoryPage(type: string, mal_id: number, name: string) {
+  current_page.value = 1
+  router.push({ name: 'animeListCategoryPage', params: {type: `${type}`, id: `${mal_id}`, name: `${name}` } })
+}
 </script>
 <template>
   <ContainerNews>
     <a href="#">
       <div>
-        <h3 class="container_news_title" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{anime.title}}</h3>
+        <h3 class="container_news_title" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">{{ anime.title_english ? anime.title_english : anime.title }}</h3>
       </div>
     </a>
-    <div class="flex space-x-3">
-      <a class="basis-1/3" href="#">
+    <div class="flex flex-col md:flex-row space-x-3">
+      <a class="text-center basis-1/1" href="#">
         <div class="relative inline-block overflow-hidden">
           <img
             :src="anime.images.webp.image_url"
@@ -76,8 +88,8 @@ defineProps({
            {{ anime.synopsis?.substring(0, anime.synopsis.length - 1).slice(0, 100) + '...' }}
           </div>
         </a>
-        <div class="flex justify-between mt-2">
-          <div class="flex w-3/4">
+        <div class="flex flex-col lg:flex-row justify-between mt-2">
+          <div class="flex w-full lg:w-2/4">
             <div class="pr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +105,15 @@ defineProps({
               </svg>
             </div>
             <div class="text-gray-700 dark:text-gray-400">
-              <a class="hover:font-medium" href="#" v-for="(genre, i) in anime.genres" :key="genre.mal_id">{{genre.name}}{{(i < anime.genres.length - 1) ? ', ' : ''  }}</a>
+              <a class="hover:font-medium" href="#" 
+              v-for="(genre, i) in anime.genres" 
+              :key="genre.mal_id"
+              @click="goAnimeListCategoryPage('genre', genre.mal_id, genre.name)">
+              {{genre.name}}{{(i < anime.genres.length - 1) ? ', ' : ''  }}
+            </a>
             </div>
           </div>
-          <div class="flex w-1/4">
+          <div class="flex w-full lg:w-2/4 lg:justify-end">
             <div class="pr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +129,12 @@ defineProps({
               </svg>
             </div>
             <div class="text-gray-700 dark:text-gray-400">
-              <a class="hover:font-medium" href="#" v-for="(studio, i) in anime.studios" :key="studio.mal_id">{{ studio.name }}{{(i < anime.studios.length - 1) ? ', ' : ''  }}</a>
+              <a class="hover:font-medium" href="#" 
+              v-for="(studio, i) in anime.studios" 
+              :key="studio.mal_id"
+              @click="goAnimeListCategoryPage('producer', studio.mal_id, studio.name)">
+              {{ studio.name }}{{(i < anime.studios.length - 1) ? ', ' : ''  }}
+            </a>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRouter, useRoute } from 'vue-router'
 
 import { useAnimeStore } from '../stores/anime'
 import { storeToRefs } from 'pinia'
@@ -11,40 +11,41 @@ import AnimeList from '@/components/AnimeList.vue'
 import { onMounted, watch } from 'vue'
 
 const animeStore = useAnimeStore()
-const { animeArrayCatetegory, current_page } = storeToRefs(animeStore)
+const { filterAnimeLetter, animeSearch, current_page } = storeToRefs(animeStore)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const router = useRouter()
 const route = useRoute()
 
 onMounted(() => {
-  if (route.params.type === 'genre') {
-    animeStore.getAnimeArrayCatetegory(25, current_page.value, Number(route.params.id))
-  } else {
-    animeStore.getAnimeArrayStudios(25, current_page.value, Number(route.params.id))
-  }
+  animeStore.getAnimeSearch(25, current_page.value)
 })
 
 watch(
   () => route.params,
   (to, from) => {
-    if (route.params.type === 'genre') {
-      animeStore.getAnimeArrayCatetegory(25, current_page.value, Number(route.params.id))
-    } else {
-      animeStore.getAnimeArrayStudios(25, current_page.value, Number(route.params.id))
-    }
+    animeStore.getAnimeSearch(25, current_page.value)
     window.scrollTo(0, 0)
   },
   { deep: true }
 )
+
+onBeforeRouteLeave((to, from) => {
+  if (to.name !== 'animePage') {
+    current_page.value = 1
+    animeSearch.value = ''
+    filterAnimeLetter.value = []
+  }
+})
 </script>
 <template>
   <ContainerNews>
     <div>
       <div class="flex justify-between">
-        <h3 class="container_news_title">{{ route.params.name }}</h3>
+        <h3 class="container_news_title" v-if="filterAnimeLetter.length">Found anime...</h3>
+        <h3 class="container_news_title" v-else>Not Found anime...</h3>
       </div>
-      <AnimeList :animeList="animeArrayCatetegory" />
+      <AnimeList :animeList="filterAnimeLetter" />
     </div>
   </ContainerNews>
   <PaginationPage />

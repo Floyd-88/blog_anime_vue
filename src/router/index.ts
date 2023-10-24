@@ -5,6 +5,8 @@ import TopPage from '../pages/TopPage.vue'
 import RecommendationsPage from '../pages/RecommendationsPage.vue'
 import CategoryPage from '../pages/CategoryPage.vue'
 import AnimeListCategoryPage from '../pages/AnimeListCategoryPage.vue'
+import SearchPage from '../pages/SearchPage.vue'
+
 
 
 const router = createRouter({
@@ -39,7 +41,13 @@ const router = createRouter({
       path: '/category/:type/:id/:name',
       name: 'animeListCategoryPage',
       component: AnimeListCategoryPage
+    },
+    {
+      path: '/search',
+      name: 'searchPage',
+      component: SearchPage
     }
+
   ]
 })
 

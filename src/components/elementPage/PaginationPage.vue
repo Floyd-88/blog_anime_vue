@@ -3,14 +3,11 @@ import { useRoute } from 'vue-router'
 import Paginate from 'vuejs-paginate-next'
 import { storeToRefs } from 'pinia'
 import { useAnimeStore } from '../../stores/anime'
-import { ref } from 'vue'
 
 const aimeStore = useAnimeStore()
-const { last_visible_page } = storeToRefs(aimeStore)
+const { last_visible_page, current_page } = storeToRefs(aimeStore)
 
 const route = useRoute()
-
-let current_page = ref(1)
 
 const clickCallback = () => {
   window.scrollTo(0, 0)
@@ -30,8 +27,9 @@ const clickCallback = () => {
     case `/category/producer/${Number(route.params.id)}/${route.params.name}`:
       aimeStore.getAnimeArrayStudios(25, current_page.value, Number(route.params.id))
       break
-    // default:
-    //   console.log("Sorry, we are out of " + expr + ".");
+      case `/search`:
+      aimeStore.getAnimeSearch(25, current_page.value)
+      break
   }
 }
 </script>

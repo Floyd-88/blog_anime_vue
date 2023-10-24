@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
-  <section class="flex mb-8">
-    <div class="w-full h-72 relative inline-block overflow-hidden">
+  <section class="mb-8 mt-[78px]">
+    <div class="hidden md:inline-block w-full h-72 relative  overflow-hidden">
       <div
         class="absolute left-0 top-0 w-full h-full z-10 bg-gradient-to-b from-black/10 to-black/50"
       ></div>

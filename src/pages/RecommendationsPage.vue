@@ -9,9 +9,11 @@ import ContainerNews from '@/components/elementPage/ContainerNews.vue'
 const animeStore = useAnimeStore()
 const { animeRecommendations } = storeToRefs(animeStore)
 const router = useRouter()
+
 onMounted(() => {
   animeStore.getRecommendationsAnime(1)
 })
+
 </script>
 <template>
   <ContainerNews>
@@ -26,10 +28,10 @@ onMounted(() => {
         :key="recommend.mal_id"
       >
         <div class="flex mb-2">
-          <div class="flex w-1/2">
+          <div class="flex flex-col w-1/2 pr-2">
             <div class="mr-2">
               <a href="#"
-                ><img :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })"
+                ><img class="max-w-none" :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })"
               /></a>
             </div>
             <div>
@@ -39,10 +41,10 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="flex w-1/2">
+          <div class="flex flex-col w-1/2">
             <div class="mr-2">
               <a href="#"
-                ><img :src="recommend.entry[1].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })"
+                ><img class="max-w-none" :src="recommend.entry[1].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })"
               /></a>
             </div>
             <div>

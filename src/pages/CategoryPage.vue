@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAnimeStore } from '../stores/anime'
 import { storeToRefs } from 'pinia'
 
@@ -10,18 +10,34 @@ const { animeGenres, animeStudios } = storeToRefs(animeStore)
 
 onMounted(() => {
   animeStore.getStudiosAnime()
-  animeStore.getGenresAnime()
-
+  animeStore.getGenresAnime('genres')
 })
 
+function clickGenres(value: string) {
+  activeGenres.value = value
+  animeStore.getGenresAnime(value)
+}
+
+const activeGenres = ref('genres')
+const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres', Themes: 'themes', Demographics: 'demographics'})
 </script>
 <template>
   <ContainerNews>
-    <div class="flex items-center justify-between mb-3 border-b-2 border-gray-300">
-      <h3 class="container_news_title mb-1">Genres</h3>
+    <div class="flex flex-col sm:flex-row items-center justify-start mb-3 border-b-2 border-gray-300">
+      <template v-for="(val, key) in arrayGenres" :key="val">
+        <div
+          :class="{ active: activeGenres === val }"
+          class="mb-1 hover:text-indigo-500 cursor-pointer border-2 w-full text-center sm:border-0 sm:w-auto"
+          @click="clickGenres(val)"
+        >
+          {{ key }}
+        </div>
+        <span class="ml-2 mr-2 hidden sm:flex" v-if="key != 'Demographics'">/</span>
+      </template>
     </div>
+
     <div>
-      <ul class="grid grid-cols-4 gap-4">
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <a href="#" class="flex items-center pb-2" v-for="genre in animeGenres" :key="genre.mal_id">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +51,17 @@ onMounted(() => {
               clip-rule="evenodd"
             />
           </svg>
-          <li class="hover:text-indigo-500 text-sm" @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` } })">{{ genre.name }} <span>({{ genre.count }})</span></li></a
+          <li
+            class="hover:text-indigo-500 text-sm"
+            @click="
+              $router.push({
+                name: 'animeListCategoryPage',
+                params: { type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` }
+              })
+            "
+          >
+            {{ genre.name }} <span>({{ genre.count }})</span>
+          </li></a
         >
       </ul>
     </div>
@@ -46,8 +72,13 @@ onMounted(() => {
       <h3 class="container_news_title mb-1">Studios</h3>
     </div>
     <div>
-      <ul class="grid grid-cols-4 gap-4">
-        <a href="#" class="flex items-center pb-2"  v-for="studio in animeStudios" :key="studio.mal_id">
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <a
+          href="#"
+          class="flex items-center pb-2"
+          v-for="studio in animeStudios"
+          :key="studio.mal_id"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -60,10 +91,32 @@ onMounted(() => {
               clip-rule="evenodd"
             />
           </svg>
-          <li class="hover:text-indigo-500 text-sm" @click="$router.push({ name: 'animeListCategoryPage', params: { type: 'producer', id: `${studio.mal_id}`, name: `${studio.titles[0].title}` } })">{{ studio.titles[0].title }} <span>({{ studio.count }})</span></li></a
+          <li
+            class="hover:text-indigo-500 text-sm"
+            @click="
+              $router.push({
+                name: 'animeListCategoryPage',
+                params: {
+                  type: 'producer',
+                  id: `${studio.mal_id}`,
+                  name: `${studio.titles[0].title}`
+                }
+              })
+            "
+          >
+            {{ studio.titles[0].title }} <span>({{ studio.count }})</span>
+          </li></a
         >
       </ul>
     </div>
   </ContainerNews>
 </template>
-<style scoped></style>
+<style scoped>
+.active {
+  font-weight: 600;
+  font-size: 16px;
+}
+.active:hover {
+  color: black;
+}
+</style>

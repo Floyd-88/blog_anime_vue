@@ -13,33 +13,46 @@ const { anime } = storeToRefs(animeStore)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const route = useRoute()
 
-onMounted(() => {
-  animeStore.getAnime(Number(route.params.id))
-  window.scrollTo(0, 0)
-})
+animeStore.getAnime(Number(route.params.id))
+window.scrollTo(0, 0)
+
 
 watch(
   () => route.params,
   (to, from) => {
-    animeStore.getAnime(Number(route.params.id))
+    // if(!anime.value) {
+      animeStore.getAnime(Number(route.params.id))
     window.scrollTo(0, 0)
-  },
-  { deep: true }
+    // }
+  }
 )
 </script>
 <template>
   <ContainerNews>
     <div>
-      <div class="mb-1">
-        <h3 class="text-2xl font-bold">{{ anime.title }}</h3>
-        <h3 class="text-base font-bold">{{ anime.title_english }}</h3>
+      <div class="mb-1 flex justify-between">
+        <div class="pr-2">
+          <h3 class="text-base md:text-2xl font-bold">{{ anime.title_english }}</h3>
+          <h3 class="text-base font-bold">{{ anime.title }}</h3>
+        </div>
+        <button
+          class="px-2 h-max border-2 border-indigo-400 bg-indigo-400 text-white hover:bg-indigo-600"
+          @click="$router.go(-1)"
+        >
+          Back
+        </button>
       </div>
-      <div>{{ anime.year }} | {{ anime.rating }}</div>
+      <div>{{ anime.aired?.from?.toLocaleString().slice(0, 4) }} | {{ anime.rating }}</div>
       <div>
         <ul class="flex my-2">
           <li
             class="mr-2 p-1 border border-indigo-500 bg-gray-600 font-bold text-xs text-white cursor-pointer"
-            @click="$router.push({ name: 'animeListCategoryPage', params: {type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` } })"
+            @click="
+              $router.push({
+                name: 'animeListCategoryPage',
+                params: { type: 'genre', id: `${genre.mal_id}`, name: `${genre.name}` }
+              })
+            "
             v-for="genre in anime.genres"
             :key="genre.mal_id"
           >
@@ -49,8 +62,8 @@ watch(
       </div>
 
       <div class="mt-3">
-        <div class="flex space-x-2">
-          <img class="basis-1/3" :src="anime.images?.webp.image_url" :alt="anime.title_english" />
+        <div class="flex flex-col sm:flex-row sm:space-x-2">
+          <img class="basis-1/3 pb-2 sm:pb-0" :src="anime.images?.webp.image_url" :alt="anime.title_english" />
           <div class="basis-2/3">
             <div class="h-full" style="flex: 1 1 0%; background: rgb(0, 0, 0)">
               <iframe
@@ -102,7 +115,7 @@ watch(
               </div>
             </div>
           </div>
-          <div class="flex space-x-2">
+          <div class="flex flex-col lg:flex-row lg:space-x-2">
             <div class="basis-1/3 pr-2">
               <h2 class="text-2xl font-bold mb-2">General info</h2>
               <ul>

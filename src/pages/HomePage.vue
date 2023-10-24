@@ -4,13 +4,15 @@ import { useAnimeStore } from '../stores/anime'
 
 import PaginationPage from '@/components/elementPage/PaginationPage.vue'
 import MainAnimeProject from '@/components/mainAnimeProject/MainAnimeProject.vue'
+import { storeToRefs } from 'pinia';
 
-const rootStore = useAnimeStore();
+const animeStore = useAnimeStore();
+
+const {current_page} = storeToRefs(animeStore)
 
 onMounted(() => {
-    rootStore.getNewAnime(10, 1)
-    rootStore.getTopAnimeLimit()
-    
+    animeStore.getNewAnime(10, current_page.value)
+    animeStore.getTopAnimeLimit()  
 })
 
 </script>

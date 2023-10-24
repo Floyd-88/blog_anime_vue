@@ -11,6 +11,8 @@ import {
 import type { Anime, Anime_recommendations, Anime_genres, Anime_studios } from '@/types/anime'
 
 interface State {
+  current_page: number
+  last_visible_page: number
   anime: Anime
   animeArrayCatetegory: Anime[]
   newAnime: Anime[]
@@ -19,11 +21,14 @@ interface State {
   animeRecommendations: Anime_recommendations[]
   animeGenres: Anime_genres[]
   animeStudios: Anime_studios[]
-  last_visible_page: number
+  animeSearch: string
+  filterAnimeLetter: Anime[]
 }
 
 export const useAnimeStore = defineStore('root', {
   state: (): State => ({
+    current_page: 1,
+    last_visible_page: 0,
     anime: {},
     animeArrayCatetegory: [],
     newAnime: [],
@@ -32,7 +37,8 @@ export const useAnimeStore = defineStore('root', {
     animeRecommendations: [],
     animeGenres: [],
     animeStudios: [],
-    last_visible_page: 0
+    animeSearch: '',
+    filterAnimeLetter: []
   }),
 
   actions: {
@@ -80,7 +86,7 @@ export const useAnimeStore = defineStore('root', {
     //получаем список сезонного аниме
     async getNewAnime(count: number, current_page: number) {
       try {
-        const { data } = await axios.get(`${NEW_ANIME}?limit=${count}&page=${current_page}`)
+        const { data } = await axios.get(`${NEW_ANIME}?limit=${count}&page=${current_page}&sfw`)
         this.newAnime = data.data
         this.last_visible_page = data.pagination.last_visible_page
         console.log(this.newAnime)
@@ -124,10 +130,10 @@ export const useAnimeStore = defineStore('root', {
     },
 
     //получаем список жанров аниме
-    async getGenresAnime() {
+    async getGenresAnime(type: string) {
       try {
-        const { data } = await axios.get(`${GENRES_ANIME}`)
-        this.animeGenres = data.data
+          const { data } = await axios.get(`${GENRES_ANIME}?filter=${type}`)
+          this.animeGenres = data.data
       } catch (error) {
         console.log(error)
       }
@@ -139,6 +145,23 @@ export const useAnimeStore = defineStore('root', {
         const { data } = await axios.get(`${STUDIOS_ANIME}`)
         this.animeStudios = data.data
       } catch (error) {
+        console.log(error)
+      }
+    },
+
+    //получаем список аниме по букве
+    async getAnimeSearch(count: number, current_page: number) {
+      try{
+        if (this.animeSearch) {
+          const { data } = await axios.get(
+            `${ANIME}?sfw&limit=${count}&page=${current_page}&q=${this.animeSearch}`
+          )
+          this.filterAnimeLetter = data.data
+          this.last_visible_page = data.pagination.last_visible_page
+        } else {
+          this.last_visible_page = 0
+        }
+      } catch(error) {
         console.log(error)
       }
     }

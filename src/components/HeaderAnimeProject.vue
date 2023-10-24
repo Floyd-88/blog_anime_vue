@@ -1,16 +1,40 @@
 <script lang="ts" setup>
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
+import SearchElement from './elementPage/SearchElement.vue'
+
+import { useAnimeStore } from '../stores/anime'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
+const animeStore = useAnimeStore()
+const { current_page } = storeToRefs(animeStore)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const router = useRouter()
+
+function goPage(url: string) {
+  current_page.value = 1
+  router.push(url)
+  isNavMenu.value = false
+}
+
+const isNavMenu = ref(false)
+
+function showNawMenu() {
+  isNavMenu.value = !isNavMenu.value
+}
+
+function closeNavMenu(bool: boolean) {
+  isNavMenu.value = bool
+}
 </script>
 <template>
   <header
-    class="bg-gradient-to-r from-sky-500 via-30% to-emerald-500 to-90% dark:from-sky-800 dark:to-emerald-800"
+    class="fixed z-50 w-full bg-gradient-to-r from-sky-500 via-30% to-emerald-500 to-90% dark:from-sky-800 dark:to-emerald-800"
   >
-    <div class="py-4 flex items-center justify-between max-w-screen-xl mx-auto">
-      <div class="flex items-center">
-        <div class="flex items-center xl:hidden">
+    <div class="py-4 flex flex-col lg:flex-row items-center justify-between max-w-screen-xl mx-auto">
+      <div class="flex items-center w-full">
+        <div class="flex justify-start absolute lg:hidden" @click="showNawMenu">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -26,44 +50,52 @@ const router = useRouter()
             />
           </svg>
         </div>
-        <img src="../assets/img/logo/logo_headar.png" alt="logo" />
+        <img class="m-auto" src="../assets/img/logo/logo_headar.png" alt="logo" />
       </div>
-      <nav class="hidden xl:flex">
+      <nav class="hidden lg:flex">
         <ul class="flex text-xl text-gray-600 dark:text-slate-300 font-bold uppercase">
-          <li><a href="#" class="nav_link" @click="$router.push('/')">Home</a></li>
-          <li><a href="#" class="nav_link" @click="$router.push('/top')">Top</a></li>
-          <li><a href="#" class="nav_link" @click="$router.push('/recommendations')">Recommendations</a></li>
-          <li><a href="#" class="nav_link" @click="$router.push('/category')">Category</a></li>
+          <li><a href="#" class="nav_link" @click="goPage('/')">Home</a></li>
+          <li><a href="#" class="nav_link" @click="goPage('/top')">Top</a></li>
+          <li><a href="#" class="nav_link" @click="goPage('/recommendations')">Recommendations</a></li>
+          <li><a href="#" class="nav_link" @click="goPage('/category')">Category</a></li>
         </ul>
       </nav>
-      <div class="items-center hidden xl:flex">
-        <input
-          type="text"
-          placeholder="Search..."
-          class="p-2 text-gray-500 bg-gray-100 border-2 rounded-md hover:border-gray-600 transition-all duration-300"
-        />
-        <button
-          class="py-2 px-3 ml-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-7 h-7"
+      <SearchElement class="hidden lg:flex" @closeNavMenu="closeNavMenu"/>
+
+      <div class="w-full lg:hidden" v-if="isNavMenu">
+        <nav class="flex w-full">
+          <ul
+            class="flex w-full flex-col text-xl text-gray-600 dark:text-slate-300 font-bold uppercase"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
+            <li
+              class="text-center py-2 w-full border-t-4 border-gray-600 text-slate-600 bg-gray-400 hover:bg-indigo-300 cursor-pointer"
+            >
+              <a href="#" class="lg:nav_link" @click="goPage('/')">Home</a>
+            </li>
+            <li
+              class="text-center py-2 w-full border-t-4 border-gray-600 text-slate-600 bg-gray-400 hover:bg-indigo-300 cursor-pointer"
+            >
+              <a href="#" class="lg:nav_link" @click="goPage('/top')">Top</a>
+            </li>
+            <li
+              class="text-center py-2 w-full border-t-4 border-gray-600 text-slate-600 bg-gray-400 hover:bg-indigo-300 cursor-pointer"
+            >
+              <a href="#" class="lg:nav_link" @click="goPage('/recommendations')"
+                >Recommendations</a
+              >
+            </li>
+            <li
+              class="text-center py-2 w-full border-y-4 border-gray-600 text-slate-600 bg-gray-400 hover:bg-indigo-300 cursor-pointer"
+            >
+              <a href="#" class="lg:nav_link" @click="goPage('/category')">Category</a>
+            </li>
+          </ul>
+        </nav>
+        <SearchElement @closeNavMenu="closeNavMenu"/>
       </div>
 
       <ul class="hidden sm:flex items-center mx-2">
-        <li>
+        <!-- <li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -78,7 +110,7 @@ const router = useRouter()
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-        </li>
+        </li> -->
         <!-- <li><button class="btn_header">Login</button></li>
             <li><button class="btn_header">Register</button></li> -->
       </ul>
