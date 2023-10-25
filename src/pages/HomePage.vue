@@ -11,7 +11,7 @@ const animeStore = useAnimeStore();
 const {current_page} = storeToRefs(animeStore)
 
 onMounted(() => {
-    animeStore.getNewAnime(10, current_page.value)
+    animeStore.getNewAnime(20, current_page.value)
     animeStore.getTopAnimeLimit()  
 })
 

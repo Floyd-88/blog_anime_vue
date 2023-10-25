@@ -23,15 +23,16 @@ onMounted(() => {
       </div>
 
       <div
-        class="pb-4 pt-4 border-b-2 border-gray-300"
+        class="pb-4 pt-4 border-b-2 border-gray-300 dark:text-gray-300"
         v-for="recommend in animeRecommendations"
         :key="recommend.mal_id"
       >
         <div class="flex mb-2">
           <div class="flex flex-col w-1/2 pr-2">
-            <div class="mr-2">
+            <div class="mr-2 w-14 h-20">
               <a href="#"
-                ><img class="max-w-none" :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })"
+              class=""
+                ><img class="w-full h-full lg:max-w-none" :src="recommend.entry[0].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[0]}` } })"
               /></a>
             </div>
             <div>
@@ -42,9 +43,9 @@ onMounted(() => {
             </div>
           </div>
           <div class="flex flex-col w-1/2">
-            <div class="mr-2">
+            <div class="mr-2 w-14 h-20">
               <a href="#"
-                ><img class="max-w-none" :src="recommend.entry[1].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })"
+                ><img class="w-full h-full lg:max-w-none" :src="recommend.entry[1].images.webp.small_image_url" alt="art" @click="router.push({ name: 'animePage', params: { id: `${recommend.mal_id.split('-')[1]}` } })"
               /></a>
             </div>
             <div>
@@ -59,9 +60,9 @@ onMounted(() => {
           <div class="mb-2 text-sm">
             {{ recommend.content }}
           </div>
-          <div class="text-sm text-gray-500">
+          <div class="text-sm text-gray-500 dark:text-gray-400">
             Anime rec by
-            <span class="text-gray-600 font-medium">{{
+            <span class="text-gray-600 font-medium dark:text-gray-400">{{
               recommend.user.username[0].toUpperCase() + recommend.user.username.slice(1)
             }}</span>
             -

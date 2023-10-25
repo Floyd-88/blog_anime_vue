@@ -29,7 +29,7 @@ watch(
 </script>
 <template>
   <ContainerNews>
-    <div>
+    <div class="dark:text-gray-400">
       <div class="mb-1 flex justify-between">
         <div class="pr-2">
           <h3 class="text-base md:text-2xl font-bold">{{ anime.title_english }}</h3>
@@ -46,7 +46,7 @@ watch(
       <div>
         <ul class="flex my-2">
           <li
-            class="mr-2 p-1 border border-indigo-500 bg-gray-600 font-bold text-xs text-white cursor-pointer"
+            class="mr-2 p-1 border border-indigo-500 bg-gray-600 hover:bg-gray-400 font-bold text-xs text-white cursor-pointer"
             @click="
               $router.push({
                 name: 'animeListCategoryPage',
@@ -68,8 +68,7 @@ watch(
             <div class="h-full" style="flex: 1 1 0%; background: rgb(0, 0, 0)">
               <iframe
                 frameborder="0"
-                fullscreen="1"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="fullscreen; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 :title="anime.title"
                 width="100%"
                 height="100%"
@@ -87,7 +86,7 @@ watch(
               class="basis-1/3 flex flex-col justify-center items-center p-2 rounded-md border-2 border-green-500"
             >
               <p class="font-medium">score</p>
-              <div class="font-bold text-2xl">
+              <div class="font-bold text-2xl" v-if="anime.score">
                 <span>{{ anime.score }}</span
                 >/<span>10</span>
               </div>
@@ -96,14 +95,14 @@ watch(
               class="basis-1/3 flex flex-col justify-center items-center p-2 rounded-md border-2 border-blue-500"
             >
               <p class="font-medium">rank</p>
-              <div class="flex items-center">
+              <div class="flex items-center" v-if="anime.rank">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6 text-yellow-500"
+                  class="w-6 h-6 text-yellow-500 fill-yellow-500"
                 >
                   <path
                     stroke-linecap="round"
@@ -119,20 +118,33 @@ watch(
             <div class="basis-1/3 pr-2">
               <h2 class="text-2xl font-bold mb-2">General info</h2>
               <ul>
-                <li class="mb-2 py-1 text-base border-t border-indigo-500">
-                  Type: <span>{{ anime.type }}</span>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Type: <span class="font-light" v-if="anime.type">{{ anime.type }}</span>
                 </li>
-                <li class="mb-2 py-1 text-base border-t border-indigo-500">
-                  Source: <span>{{ anime.source }}</span>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Source: <span class="font-light" v-if="anime.source">{{ anime.source }}</span>
                 </li>
-                <li class="mb-2 py-1 text-base border-t border-indigo-500">
-                  Episodes: <span>{{ anime.episodes }}</span>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Episodes: <span class="font-light" v-if="anime.episodes">{{ anime.episodes }}</span>
                 </li>
-                <li class="mb-2 py-1 text-base border-t border-indigo-500">
-                  Status: <span>{{ anime.status }}</span>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Status: <span class="font-light" v-if="anime.status">{{ anime.status }}</span>
                 </li>
-                <li class="mb-2 py-1 text-base border-t border-indigo-500">
-                  Duration: <span>{{ anime.duration }}</span>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Duration: <span class="font-light" v-if="anime.duration">{{ anime.duration }}</span>
+                </li>
+                <li class="mb-2 py-1 text-base border-t border-indigo-500 font-medium">
+                  Studios: <span class="font-light"  v-for="studio in anime.studios"
+                                  :key="studio.mal_id">{{ studio.name }}</span>
+                </li>
+                <li class="mb-2 py-1 text-sm border-t border-indigo-500 font-medium">
+                  Aired: <span class="font-light">{{
+                    new Date(anime.aired?.from).toDateString().split(' ').splice(1).join(' ')
+                  }}</span>
+                  -
+                  <span class="font-light">{{
+                    new Date(anime.aired?.to).toDateString().split(' ').splice(1).join(' ')
+                  }}</span>
                 </li>
               </ul>
             </div>

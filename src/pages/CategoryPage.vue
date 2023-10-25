@@ -23,11 +23,11 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
 </script>
 <template>
   <ContainerNews>
-    <div class="flex flex-col sm:flex-row items-center justify-start mb-3 border-b-2 border-gray-300">
+    <div class="flex flex-col sm:flex-row items-center justify-start mb-3 dark:text-gray-400 border-b-2 border-gray-300">
       <template v-for="(val, key) in arrayGenres" :key="val">
         <div
           :class="{ active: activeGenres === val }"
-          class="mb-1 hover:text-indigo-500 cursor-pointer border-2 w-full text-center sm:border-0 sm:w-auto"
+          class="mb-1 dark:text-gray-400 hover:text-indigo-500 cursor-pointer border-2 w-full text-center sm:border-0 sm:w-auto"
           @click="clickGenres(val)"
         >
           {{ key }}
@@ -52,7 +52,7 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
             />
           </svg>
           <li
-            class="hover:text-indigo-500 text-sm"
+            class="dark:text-gray-400 hover:text-indigo-500 text-sm"
             @click="
               $router.push({
                 name: 'animeListCategoryPage',
@@ -75,7 +75,7 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
       <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <a
           href="#"
-          class="flex items-center pb-2"
+          class="flex items-center pb-2 "
           v-for="studio in animeStudios"
           :key="studio.mal_id"
         >
@@ -83,7 +83,7 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-3 h-3 mr-1 stroke-current"
+            class="basis-1/6 w-3 h-3 stroke-current text-gray-400"
           >
             <path
               fill-rule="evenodd"
@@ -92,7 +92,7 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
             />
           </svg>
           <li
-            class="hover:text-indigo-500 text-sm"
+            class="basis-5/6 dark:text-gray-400 hover:text-indigo-500 text-sm"
             @click="
               $router.push({
                 name: 'animeListCategoryPage',
@@ -105,18 +105,15 @@ const arrayGenres = ref({Genre: 'genres', ['Explicit genres']: 'explicit_genres'
             "
           >
             {{ studio.titles[0].title }} <span>({{ studio.count }})</span>
-          </li></a
-        >
+          </li>
+          </a>
       </ul>
     </div>
   </ContainerNews>
 </template>
 <style scoped>
 .active {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-}
-.active:hover {
-  color: black;
 }
 </style>

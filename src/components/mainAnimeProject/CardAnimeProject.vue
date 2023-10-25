@@ -84,6 +84,7 @@ function goAnimeListCategoryPage(type: string, mal_id: number, name: string) {
         <a href="#" @click="router.push({ name: 'animePage', params: { id: `${anime.mal_id}` } })">
           <div
             class="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
+            v-if="anime.synopsis"
           >
            {{ anime.synopsis?.substring(0, anime.synopsis.length - 1).slice(0, 100) + '...' }}
           </div>

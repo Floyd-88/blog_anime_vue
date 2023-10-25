@@ -47,7 +47,6 @@ export const useAnimeStore = defineStore('root', {
       try {
         const { data } = await axios.get(`${ANIME}/${id}`)
         this.anime = data.data
-        console.log(this.anime)
       } catch (error) {
         console.log(error)
       }
@@ -61,8 +60,6 @@ export const useAnimeStore = defineStore('root', {
         )
         this.animeArrayCatetegory = data.data
         this.last_visible_page = data.pagination.last_visible_page
-
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -76,8 +73,6 @@ export const useAnimeStore = defineStore('root', {
         )
         this.animeArrayCatetegory = data.data
         this.last_visible_page = data.pagination.last_visible_page
-
-        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -89,7 +84,6 @@ export const useAnimeStore = defineStore('root', {
         const { data } = await axios.get(`${NEW_ANIME}?limit=${count}&page=${current_page}&sfw`)
         this.newAnime = data.data
         this.last_visible_page = data.pagination.last_visible_page
-        console.log(this.newAnime)
       } catch (error) {
         console.log(error)
       }
@@ -110,8 +104,7 @@ export const useAnimeStore = defineStore('root', {
       try {
         const { data } = await axios.get(`${TOP_ANIME}?limit=${count}&page=${current_page}`)
         this.topAnime = data.data
-        this.last_visible_page = data.pagination.last_visible_page
-        console.log(this.topAnime)
+        this.last_visible_page = 50
       } catch (error) {
         console.log(error)
       }
@@ -123,7 +116,6 @@ export const useAnimeStore = defineStore('root', {
         const { data } = await axios.get(`${RECOMMDATIONS_ANIME}?page=${current_page}`)
         this.animeRecommendations = data.data
         this.last_visible_page = data.pagination.last_visible_page
-        console.log(this.animeRecommendations)
       } catch (error) {
         console.log(error)
       }

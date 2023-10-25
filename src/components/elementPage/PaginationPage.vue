@@ -46,7 +46,7 @@ const clickCallback = () => {
       :prev-class="'pagination rounded-l'"
       :next-class="'pagination rounded-r'"
       :container-class="'flex justify-center'"
-      :page-class="'pagination'"
+      :page-class="'hidden md:pagination'"
       :active-class="'pagination bg-gray-200 text-indigo-700 hover:bg-gray-200 hover:text-indigo-700 font-mediu'"
     >
     </Paginate>

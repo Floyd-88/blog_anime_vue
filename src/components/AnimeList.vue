@@ -28,7 +28,7 @@ defineProps({
 })
 </script>
 <template>
-  <div class="flex flex-col lg:flex-row lg:flex-wrap gap-3">
+  <div class="flex flex-col lg:flex-row lg:flex-wrap gap-3 dark:text-gray-400">
     <div class="border-2" v-for="anime in animeList" :key="anime.mal_id">
       <div >
         <div class="text-base font-medium w-80">
